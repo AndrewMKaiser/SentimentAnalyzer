@@ -1,5 +1,6 @@
 package main
 
+// packages
 import (
 	"encoding/csv"
 	"fmt"
@@ -43,15 +44,29 @@ func buildSocialSentimentTable(filename string) map[string]float32 {
 
 }
 
-func getSocialSentimentScore(filename string) float32 {
-	var avgScore float32
+func getSocialSentimentScore(filename string, socialSentTable *map[string]float32) float32 {
+
+	var finalScore float32 // Declares variable to store the overall score of the file
+
 	reviewFile, err := os.ReadFile(filename) // reviewFile is a byte slice of the file data
 	check(err) // Checks for filename validity
-	reviewText := removeNonAlphabetical(string(reviewFile)) // Stores the file data as a string containing only words
-	reviewTextReader := strings.NewReader(reviewText)
+	reviewText := removeNonAlphabetical(string(reviewFile)) // Stores the file data as a string containing only words and whitespace
+	reviewTextSlice := strings.Split(strings.ToLower(reviewText), " ") // Splits reviewText into a slice of lowercase words (lowercase because socialsent.csv contains only lowercase words)
+
+	fmt.Println("[word: current_score, accumulated_score]")
+	for _, word := range reviewTextSlice { // Iterates through each word in the file
+		sentScore, inMap := (*socialSentTable)[word] // sentScore is the value in the table corresponding to key 'word,' and inMap is a boolean value (true if word is in the table, false if not)
+		if inMap {
+			finalScore += sentScore // If the word is in the table, extract its sentiment score and add it to finalScore
+			fmt.Printf("%s: %.2f, %.2f\n", word, sentScore, finalScore) // Prints out the word, current score, and accumulated score in correct format
+		}
+		// Otherwise, move to the next word
+	}
 	
-	return avgScore
+	return finalScore // Return the result of the sum of all sentiment scores in the file
 }
+
+// func getStarRating(ratingNum float32)
 
 func removeNonAlphabetical(input string) string {
 	var builder strings.Builder // Initializes string builder
@@ -71,25 +86,11 @@ func check(e error) { // From https://gobyexample.com/reading-files
     }
 }
 
-/*
-func buildSocialSentimentScores(table map[string]float32, tableSize int) []float32 {
-
-	scoreSlice := make([]float32, tableSize) // Creates a slice with length tableSize (setting length = capacity = tableSize for performance)
-
-	for _, score := range table { // Iterates through all the scores in the table
-		scoreSlice = append(scoreSlice, score) // Appends the scores to scoreSlice
-	}
-
-	return scoreSlice
-}
-*/
-
 func main() {
-	filename := "socialsent.csv"
+	tableFilename := "socialsent.csv"
+	SocialSentimentScores := buildSocialSentimentTable(tableFilename)
+	getSocialSentimentScore("review.txt", &SocialSentimentScores)
 	
-	SocialSentimentScores := buildSocialSentimentTable(filename)
-
-	fmt.Print(SocialSentimentScores)
 	
 
 }
