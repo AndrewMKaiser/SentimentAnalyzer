@@ -44,16 +44,18 @@ func buildSocialSentimentTable(filename string) map[string]float32 {
 
 }
 
-func getSocialSentimentScore(filename string, socialSentTable *map[string]float32) float32 {
+func getSocialSentimentScore(filename string, socialSentTable *map[string]float32) (float32, int) {
 
 	var finalScore float32 // Declares variable to store the overall score of the file
 
 	reviewFile, err := os.ReadFile(filename) // reviewFile is a byte slice of the file data
 	check(err) // Checks for filename validity
 	reviewText := removeNonAlphabetical(string(reviewFile)) // Stores the file data as a string containing only words and whitespace
+	reviewText = strings.ReplaceAll(reviewText, "\n", " ")
 	reviewTextSlice := strings.Split(strings.ToLower(reviewText), " ") // Splits reviewText into a slice of lowercase words (lowercase because socialsent.csv contains only lowercase words)
-
-	fmt.Println("[word: current_score, accumulated_score]")
+	
+	fmt.Println()
+	fmt.Println("[word: current_score, accumulated_score]") // Prints message format
 	for _, word := range reviewTextSlice { // Iterates through each word in the file
 		sentScore, inMap := (*socialSentTable)[word] // sentScore is the value in the table corresponding to key 'word,' and inMap is a boolean value (true if word is in the table, false if not)
 		if inMap {
@@ -63,16 +65,39 @@ func getSocialSentimentScore(filename string, socialSentTable *map[string]float3
 		// Otherwise, move to the next word
 	}
 	
-	return finalScore // Return the result of the sum of all sentiment scores in the file
+	
+	starRating := getStarRating(finalScore) // Stores the star rating
+
+	fmt.Println()
+	fmt.Printf("%s score: %.2f\n", filename, finalScore)
+	fmt.Printf("%s Stars: %d\n", filename, starRating)
+
+	return finalScore, starRating // Return the result of the sum of all sentiment scores in the file
 }
 
-// func getStarRating(ratingNum float32)
+func getStarRating(ratingNum float32) int {
+	switch {
+	case ratingNum >= 5:
+		return 5
+	case ratingNum >= 1:
+		return 4
+	case ratingNum >= -1:
+		return 3
+	case ratingNum >= -5:
+		return 2
+	case ratingNum < -5:
+		return 1
+	default:
+		fmt.Println("Invalid rating")
+		return 0
+	}
+}
 
 func removeNonAlphabetical(input string) string {
 	var builder strings.Builder // Initializes string builder
 
 	for _, r := range input { // Scans each character in the string
-		if unicode.IsLetter(r) || r == ' ' { // Checks if the character is a letter or a whitespace
+		if unicode.IsLetter(r) || r == ' ' || r == '\n' { // Checks if the character is a letter, a whitespace, or a newline
 			builder.WriteRune(r) // If so, write it to the builder
 		} // Skips all non-letter, non-whitespace characters
 	}
@@ -89,7 +114,7 @@ func check(e error) { // From https://gobyexample.com/reading-files
 func main() {
 	tableFilename := "socialsent.csv"
 	SocialSentimentScores := buildSocialSentimentTable(tableFilename)
-	getSocialSentimentScore("review.txt", &SocialSentimentScores)
+	getSocialSentimentScore("good.txt", &SocialSentimentScores)
 	
 	
 
