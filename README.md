@@ -10,7 +10,7 @@
 
 ### How to run
 
-1. [Navitgate to this REPL.](https://replit.com/join/teqpaondka-andrewkaiser5) The source files are also included in the download in case the link does not work. The code is working in REPL.
+1. [Navigate to this REPL.](https://replit.com/join/teqpaondka-andrewkaiser5) The source files are also included in the submission in case the link does not work. The code is working in REPL.
 2. In the shell, type: `go build socialsent.go`
 3. After the binary is compiled, you may run it using the following format: `./socialsent <review_filename>` for a specific filename, or `./socialsent` to run it on the default `review.txt` file.
 
