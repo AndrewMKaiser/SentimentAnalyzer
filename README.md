@@ -14,7 +14,7 @@ PDF file is in submission.
 
 ### How to run
 
-1. [Navigate to this REPL.](https://replit.com/join/teqpaondka-andrewkaiser5) The source files are also included in the submission in case the link does not work. The code is working in REPL. *NOTE: REPL requires that the Go version in the `go.mod` file is set to `1.23`. On Windows, the required version is `1.21.3`. The REPL and the submitted source code has the version set to `1.23`.*
+1. [Navigate to this REPL.](https://replit.com/join/teqpaondka-andrewkaiser5) The source files are also included in the submission in case the link does not work. The code is working in REPL.
 2. In the shell, type: `go build socialsent.go`
 3. After the binary is compiled, you may run it using the following format: `./socialsent <review_filename>` for a specific filename, or `./socialsent` to run it on the default `review.txt` file.
 
