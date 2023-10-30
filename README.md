@@ -6,6 +6,10 @@
 - **HW#:** *4*
 - **Due Date:** *November 7, 2023*
 
+## Q1) Leftmost Derivation and Parse Tree
+
+PDF file is in submission.
+
 ## Q2) Social Sentiment Scores
 
 ### How to run
