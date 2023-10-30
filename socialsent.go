@@ -12,10 +12,6 @@ import (
 	"unicode"
 )
 
-
-
-
-
 func buildSocialSentimentTable(filename string) map[string]float32 {
 
 	socialSentFile, err := os.ReadFile(filename) // Reads file into a byte slice
@@ -65,7 +61,6 @@ func getSocialSentimentScore(filename string, socialSentTable *map[string]float3
 		// Otherwise, move to the next word
 	}
 	
-	
 	starRating := getStarRating(finalScore) // Stores the star rating
 
 	fmt.Println()
@@ -76,6 +71,7 @@ func getSocialSentimentScore(filename string, socialSentTable *map[string]float3
 }
 
 func getStarRating(ratingNum float32) int {
+
 	switch {
 	case ratingNum >= 5:
 		return 5
@@ -94,6 +90,7 @@ func getStarRating(ratingNum float32) int {
 }
 
 func removeNonAlphabetical(input string) string {
+
 	var builder strings.Builder // Initializes string builder
 
 	for _, r := range input { // Scans each character in the string
@@ -106,6 +103,7 @@ func removeNonAlphabetical(input string) string {
 }
 
 func check(e error) { // From https://gobyexample.com/reading-files
+	
     if e != nil {
         log.Fatalf("Error found %q\n", e)
     }
