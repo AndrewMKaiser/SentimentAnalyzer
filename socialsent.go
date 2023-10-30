@@ -94,7 +94,7 @@ func removeNonAlphabetical(input string) string {
 	var builder strings.Builder // Initializes string builder
 
 	for _, r := range input { // Scans each character in the string
-		if unicode.IsLetter(r) || r == ' ' || r == '\n' { // Checks if the character is a letter, a whitespace, or a newline
+		if unicode.IsLetter(r) || unicode.IsNumber(r) || r == ' ' || r == '\n' { // Checks if the character is a letter, a number, a whitespace, or a newline
 			builder.WriteRune(r) // If so, write it to the builder
 		} // Skips all non-letter, non-whitespace characters
 	}
