@@ -51,7 +51,7 @@ func getSocialSentimentScore(filename string, socialSentTable *map[string]float3
 	reviewTextSlice := strings.Split(strings.ToLower(reviewText), " ") // Splits reviewText into a slice of lowercase words (lowercase because socialsent.csv contains only lowercase words)
 	
 	fmt.Println()
-	fmt.Println("[word: current_score, accumulated_score]") // Prints message format
+	fmt.Println("\033[1m[word: current_score, accumulated_score]\033[0m") // Format message: bolded using ANSI escape chars
 	for _, word := range reviewTextSlice { // Iterates through each word in the file
 		sentScore, inMap := (*socialSentTable)[word] // sentScore is the value in the table corresponding to key 'word,' and inMap is a boolean value (true if word is in the table, false if not)
 		if inMap {
@@ -64,8 +64,8 @@ func getSocialSentimentScore(filename string, socialSentTable *map[string]float3
 	starRating := getStarRating(finalScore) // Stores the star rating
 
 	fmt.Println()
-	fmt.Printf("%s score: %.2f\n", filename, finalScore)
-	fmt.Printf("%s Stars: %d\n", filename, starRating)
+	fmt.Printf("\033[1m%s score: %.2f\n\033[0m", filename, finalScore) // Score message: bolded using ANSI escape chars
+	fmt.Printf("\033[1m%s stars: %d\n\033[0m", filename, starRating) // Stars message: bolded using ANSI escape chars
 
 	return finalScore, starRating // Return the result of the sum of all sentiment scores in the file
 }
