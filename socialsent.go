@@ -15,7 +15,10 @@ import (
 func buildSocialSentimentTable(filename string) map[string]float32 {
 
 	socialSentFile, err := os.ReadFile(filename) // Reads file into a byte slice
-	check(err) // Checks validity of filename
+	if err != nil { // Checks validity of filename
+		fmt.Println("You've entered an invalid filename. Ensure the file is in the directory of the executable and that the filename was typed correctly.")
+		os.Exit(1)
+	}
 	socialSentString := string(socialSentFile) // Converts byte slice into a string
 	socialSentCsvReader := csv.NewReader(strings.NewReader(socialSentString)) // Creates a csv reader (standard library)
 	socialSentTable := make(map[string]float32) // Creates a table mapping each word to its sentiment score
@@ -65,7 +68,7 @@ func getSocialSentimentScore(filename string, socialSentTable *map[string]float3
 
 	fmt.Println()
 	fmt.Printf("\033[1m%s score: %.2f\n\033[0m", filename, finalScore) // Score message: bolded using ANSI escape chars
-	fmt.Printf("\033[1m%s stars: %d\n\033[0m", filename, starRating) // Stars message: bolded using ANSI escape chars
+	fmt.Printf("\033[1m%s star rating: %d\n\033[0m", filename, starRating) // Stars message: bolded using ANSI escape chars
 
 	return finalScore, starRating // Return the result of the sum of all sentiment scores in the file
 }
