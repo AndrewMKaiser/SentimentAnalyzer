@@ -23,9 +23,10 @@ A command-line program that parses text and uses social sentiment data gathered 
 3. Clone the repository to your desired directory
 4. Move the `.txt` file to be analyzed into the directory containing `socialsent.go`
 5. In the project directory, run `go build socialsent.go` to build the `socialsent` executable. Alternatively, run `make` if the `make` utility is installed on your system.
-5. After the executable is compiled, you may run it using the following format: 
+6. After the executable is compiled, you may run it using the following format: 
     - **Mac/Linux** `./socialsent <review_filename>` for a specific filename, or `./socialsent` to run it on the default `review.txt`
     - **Windows** `.\socialsent <review_filename>` or `.\socialsent` to run it on the default `review.txt`.
+7. If the `make` utility is installed on your system, run `make clean` to remove the executables from your directory.
 
 ### Citation
 
