@@ -20,8 +20,9 @@ A command-line program that parses text and uses social sentiment data gathered 
 
 1. [Install Go, version 1.21 or higher](https://go.dev/doc/install)
 2. [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-3. Navigate to your desired directory and run `git clone https://github.com/AndrewMKaiser/GoSocialSentimentAnalyzer.git` to clone the project to your system.
-4. In the project directory, run `go build socialsent.go` to build the `socialsent` executable.
+3. Clone the repository to your desired directory
+4. Move the `.txt` file to be analyzed into the directory containing `socialsent.go`
+5. In the project directory, run `go build socialsent.go` to build the `socialsent` executable. Alternatively, run `make` if the `make` utility is installed on your system.
 5. After the executable is compiled, you may run it using the following format: 
     - **Mac/Linux** `./socialsent <review_filename>` for a specific filename, or `./socialsent` to run it on the default `review.txt`
     - **Windows** `.\socialsent <review_filename>` or `.\socialsent` to run it on the default `review.txt`.
