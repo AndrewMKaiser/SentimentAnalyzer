@@ -55,7 +55,7 @@ func getSocialSentimentScore(filename string, socialSentTable *map[string]float3
 	
 	fmt.Println()
 	fmt.Println("\033[1mSocial Sentiment Analysis\033[0m") // Title message: bolded using ANSI escape chars
-	fmt.Println("\033[1m[word: current_score, accumulated_score]\033[0m") // Format message: bolded using ANSI escape chars
+	fmt.Println("\033[1m[word: word_score, accumulated_score]\033[0m") // Format message: bolded using ANSI escape chars
 	for _, word := range reviewTextSlice { // Iterates through each word in the file
 		sentScore, inMap := (*socialSentTable)[word] // sentScore is the value in the table corresponding to key 'word,' and inMap is a boolean value (true if word is in the table, false if not)
 		if inMap {
